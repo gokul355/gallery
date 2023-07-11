@@ -18,7 +18,9 @@ import 'package:gallery/routes.dart';
 import 'package:gallery/themes/gallery_theme_data.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:appcenter/appcenter.dart';
+import 'package:appcenter_analytics/appcenter_analytics.dart';
+import 'package:appcenter_crashes/appcenter_crashes.dart';
 import 'firebase_options.dart';
 import 'layout/adaptive.dart';
 
@@ -46,6 +48,16 @@ void main() async {
   }
 
   runApp(const GalleryApp());
+  _initializeAppCenter();
+}
+
+void _initializeAppCenter() async {
+  await AppCenter.start(
+    appSecretAndroid: 'YOUR_ANDROID_APP_SECRET',
+    appSecretIOS: 'YOUR_IOS_APP_SECRET',
+    enableAnalytics: true,
+    enableCrashes: true,
+  );
 }
 
 class GalleryApp extends StatelessWidget {
