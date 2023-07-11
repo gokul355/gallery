@@ -48,16 +48,23 @@ void main() async {
   }
 
   runApp(const GalleryApp());
-  _initializeAppCenter();
+  // _initializeAppCenter();
 }
 
-void _initializeAppCenter() async {
+void initAppCenter() async {
+  final ios = defaultTargetPlatform == TargetPlatform.iOS;
+  var app_secret = ios
+      ? "123cfac9-123b-123a-123f-123273416a48"
+      : "96781fae-f8e4-4114-98c3-51e7c52c8d53";
+
   await AppCenter.start(
-    appSecretAndroid: 'YOUR_ANDROID_APP_SECRET',
-    appSecretIOS: 'YOUR_IOS_APP_SECRET',
-    enableAnalytics: true,
-    enableCrashes: true,
-  );
+      app_secret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
+}
+
+@override
+void initState() {
+  super.initState();
+  initAppCenter();
 }
 
 class GalleryApp extends StatelessWidget {
